@@ -1,36 +1,28 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html data-theme='corporate' lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - tpot_reader</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/tpot_reader.styles.css" asp-append-version="true" />
+     <link
+        href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+        asp-fallback-href="lib/daisyui/full.min.css"
+        rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="lib/htmx/htmx.min.js"></script>
+    <script src="lib/alpinejs/cdn.min.js" defer></script>
+    <script src="~/lib/animejs/anime.min.js"></script>
+
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
-<body>
+<body x-data="setup_layout()"  :data-theme="selected_theme">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">tpot_reader</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+      <partial name="Nav" />
     </header>
-    <div class="container">
+    <div class="container min-h-screen ">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -42,10 +34,94 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
+<script src="js/sweet_alerts.js"></script>
+
+<script src="js/stores.js"></script>
+
+<script>
+
+var previous = localStorage.getItem('theme') ?? "light";
+
+function setup_layout() {
+    console.log('setup_layout() initializing ...')
+    return {
+        slideOverOpen: false,
+        my_github: 'https://github.com/nickpreston24?tab=repositories',
+        get selected_box_icon_color() {
+            return '#4af'  // todo: coordinate this with the current theme
+        },
+        get theme_fix() {
+            console.log('selected_theme :>> ', this.selected_theme);
+            let found = this?.theme_fixes[this.selected_theme] ?? '';
+            return found;
+        },
+        get current_gradient() {
+            console.log('selected_theme :>> ', this.selected_theme);
+            let found = this?.gradients[this.selected_theme] ?? '';
+            return found;
+        },
+        theme_fixes: {
+            // some themes, like cupcake's text are so light, there is not enough contrast, so a darker text is necessary.
+            cupcake: 'text-yellow-500',
+        },
+        gradients: {
+            dark: "bg-gradient-to-l from-blue-500 to-violet-800",
+            light: "bg-gradient-to-r from-cyan-500 to-blue-500",
+            valentine: 'bg-gradient-to-r from-pink-500 to-rose-500',
+            lemonade: 'bg-gradient-to-r from-teal-400 to-yellow-200',
+            corporate: 'bg-gradient-to-r from-slate-100 to-blue-500',
+            cupcake: 'bg-gradient-to-r from-fuchsia-500 to-cyan-500',
+            pastel: 'bg-gradient-to-r from-violet-200 to-pink-200',
+            ocean: 'bg-gradient-to-r from-blue-300 to-green-700',
+            bumblebee: 'bg-gradient-to-r from-amber-200 to-yellow-400',
+            emerald: 'bg-gradient-to-r from-lime-300 to-green-500',
+            forest: 'bg-gradient-to-r from-emerald-500 to-emerald-900',
+            coffee: 'bg-gradient-to-r from-amber-900 to-orange-950'
+        },
+
+        themes: [
+            "light",
+            "dark",
+            "cupcake",
+            "bumblebee",
+            "emerald",
+            "corporate",
+            "synthwave",
+            "retro",
+            "cyberpunk",
+            "valentine",
+            "halloween",
+            "garden",
+            "forest",
+            "aqua",
+            "lofi",
+            "pastel",
+            "fantasy",
+            "wireframe",
+            "black",
+            "luxury",
+            "dracula",
+            "cmyk",
+            "autumn",
+            "business",
+            "acid",
+            "lemonade",
+            "night",
+            "coffee",
+            "winter",
+            "dim",
+            "nord",
+            "sunset",
+        ],
+        selected_theme: previous
+    }
+}
+
+</script>
+
 </html>
