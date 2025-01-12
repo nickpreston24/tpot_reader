@@ -5,11 +5,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
-    <div
-        hx-get
-        hx-trigger='load'
-        hx-page-handler="AllPapers"
-    >loading papers ... </div>
+    <h1 class="text-primary">Welcome</h1>
+    <template x-if='false'>
+        <div
+            hx-get
+            hx-trigger='load'
+            hx-page-handler="AllPapers"
+        >
+            loading papers ...
+        </div>
+    </template>
 </div>

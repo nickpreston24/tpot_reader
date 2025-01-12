@@ -41,26 +41,27 @@ public class IndexModel : PageModel
         string cwd = Directory.GetCurrentDirectory();
 
         string projects_dir = cwd.GoUp(2);
-        Console.WriteLine("projects dir :>> "+  projects_dir);
+        Console.WriteLine("projects dir :>> " + projects_dir);
 
         var grep_results = new Grepper()
         {
             RootPath = projects_dir,
             Recursive = true,
-            FileSearchLinePattern = url_regex
+            FileSearchLinePattern = url_regex,
         }
             .GetMatchingFiles()
             .ToList();
 
-            // grep_results.Dump("results");
+        // grep_results.Dump("results");
 
         // var result = await Search(new Read() { });
         // result.Dump();
 
-        return grep_results;//.Select(x=>x.Line).ToList();
+        return grep_results; //.Select(x=>x.Line).ToList();
     }
 
-    public async Task<IActionResult> OnGetUpdateStatus(string status = "reading") {
+    public async Task<IActionResult> OnGetUpdateStatus(string status = "reading")
+    {
         status.Dump();
         return Partial("_Papers", new Paper().AsList());
     }
@@ -76,7 +77,7 @@ public class IndexModel : PageModel
             // var papers = links_only.Select(line=> new Paper{
             //     tpot_url = line.Trim()
             // }).ToList();
-            
+
             // papers.Dump("papers");
 
             return Partial("_Papers", new Paper().AsList());

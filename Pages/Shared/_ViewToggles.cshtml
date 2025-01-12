@@ -1,11 +1,10 @@
 
 <div>
-    <!-- <pre x-text="$store.views.tabs.show"></pre> -->
 
     <template x-for="[key, value] in Object.entries($store.views)">
         
         <div 
-         class="flex items-center justify-center space-x-2">
+            class="flex items-center justify-center space-x-2">
             <input id="thisId" type="checkbox" name="switch" class="hidden" :checked="value.show">
 
             <button
@@ -23,38 +22,9 @@
                 class="text-sm select-none"
                 x-cloak>
 
-                <!-- <span x-text="!value.show ? 'Show': 'Hide'"></span>  -->
-                
-
             </label>
                 <span x-text="key"/>
 
-            <!-- <span x-text="value.show"/> -->
         </div>
     </template>
 </div>
-
-<!-- 
- -->
-
-<!-- 
-<div x-data="{ value.show: false }" class="flex items-center justify-center space-x-2">
-    <input id="thisId" type="checkbox" name="switch" class="hidden" :checked="value.show">
-
-    <button
-        x-ref="toggle"
-        type="button"
-        x-on:click="value.show = ! value.show"
-        :class="value.show ? 'bg-blue-600' : 'bg-neutral-200'"
-        class="relative inline-flex h-6 py-0.5 ml-4 focus:outline-none rounded-full w-10"
-        x-cloak>
-        <span :class="value.show ? 'translate-x-[18px]' : 'translate-x-0.5'" class="w-5 h-5 duration-200 ease-in-out bg-white rounded-full shadow-md"></span>
-    </button>
-
-    <label x-on:click="$refs.toggle.click(); $refs.toggle.focus()" :id="$id('switch')"
-           :class="{ 'text-blue-600': value.show, 'text-gray-400': ! value.show }"
-           class="text-sm select-none"
-           x-cloak>
-        Enable Feature
-    </label>
-</div> -->
